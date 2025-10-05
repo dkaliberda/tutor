@@ -523,14 +523,9 @@ def upgrade(context: click.Context, from_release: Optional[str]) -> None:
     name="apply",
 )
 @click.argument("args", nargs=-1)
-@click.option(
-    "--prune-configmaps",
-    is_flag=True,
-    help="Prune ConfigMaps that are no longer in the manifests",
-)
 @click.pass_obj
-def apply_command(context: K8sContext, args: List[str], prune_configmaps: bool) -> None:
-    kubectl_apply(context.root, *args, prune_configmaps=prune_configmaps)
+def apply_command(context: K8sContext, args: List[str]) -> None:
+    kubectl_apply(context.root, *args)
 
 
 def kubectl_apply(root: str, *args: str, prune_configmaps: bool = False) -> None:
